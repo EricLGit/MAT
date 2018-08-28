@@ -1,0 +1,2267 @@
+FIGURE
+%FIGURE Create figure window.
+%   FIGURE, by itself, creates a new figure window, and returns
+%   its handle.
+% 
+%   FIGURE(H) makes H the current figure, forces it to become visible,
+%   and raises it above all other figures on the screen.  If Figure H
+%   does not exist, and H is an integer, a new figure is created with
+%   handle H.
+%
+%   GCF returns the handle to the current figure.
+%
+%   Execute GET(H) to see a list of figure properties and
+%   their current values. Execute SET(H) to see a list of figure
+%   properties and their possible values.
+%
+%   See also SUBPLOT, AXES, GCF, CLF.
+
+%   Copyright 1984-2002 The MathWorks, Inc.
+%   Built-in function.
+结束
+
+PLOT
+%PLOT   Linear plot. 
+%   PLOT(X,Y) plots vector Y versus vector X. If X or Y is a matrix,
+%   then the vector is plotted versus the rows or columns of the matrix,
+%   whichever line up.  If X is a scalar and Y is a vector, disconnected
+%   line objects are created and plotted as discrete points vertically at
+%   X.
+%
+%   PLOT(Y) plots the columns of Y versus their index.
+%   If Y is complex, PLOT(Y) is equivalent to PLOT(real(Y),imag(Y)).
+%   In all other uses of PLOT, the imaginary part is ignored.
+%
+%   Various line types, plot symbols and colors may be obtained with
+%   PLOT(X,Y,S) where S is a character string made from one element
+%   from any or all the following 3 columns:
+%
+%          b     blue          .     point              -     solid
+%          g     green         o     circle             :     dotted
+%          r     red           x     x-mark             -.    dashdot 
+%          c     cyan          +     plus               --    dashed   
+%          m     magenta       *     star             (none)  no line
+%          y     yellow        s     square
+%          k     black         d     diamond
+%          w     white         v     triangle (down)
+%                              ^     triangle (up)
+%                              <     triangle (left)
+%                              >     triangle (right)
+%                              p     pentagram
+%                              h     hexagram
+%                         
+%   For example, PLOT(X,Y,'c+:') plots a cyan dotted line with a plus 
+%   at each data point; PLOT(X,Y,'bd') plots blue diamond at each data 
+%   point but does not draw any line.
+%
+%   PLOT(X1,Y1,S1,X2,Y2,S2,X3,Y3,S3,...) combines the plots defined by
+%   the (X,Y,S) triples, where the X's and Y's are vectors or matrices 
+%   and the S's are strings.  
+%
+%   For example, PLOT(X,Y,'y-',X,Y,'go') plots the data twice, with a
+%   solid yellow line interpolating green circles at the data points.
+%
+%   The PLOT command, if no color is specified, makes automatic use of
+%   the colors specified by the axes ColorOrder property.  By default,
+%   PLOT cycles through the colors in the ColorOrder property.  For
+%   monochrome systems, PLOT cycles over the axes LineStyleOrder property.
+%
+%   Note that RGB colors in the ColorOrder property may differ from
+%   similarly-named colors in the (X,Y,S) triples.  For example, the 
+%   second axes ColorOrder property is medium green with RGB [0 .5 0],
+%   while PLOT(X,Y,'g') plots a green line with RGB [0 1 0].
+%
+%   If you do not specify a marker type, PLOT uses no marker. 
+%   If you do not specify a line style, PLOT uses a solid line.
+%
+%   PLOT(AX,...) plots into the axes with handle AX.
+%
+%   PLOT returns a column vector of handles to lineseries objects, one
+%   handle per plotted line. 
+%
+%   The X,Y pairs, or X,Y,S triples, can be followed by 
+%   parameter/value pairs to specify additional properties 
+%   of the lines. For example, PLOT(X,Y,'LineWidth',2,'Color',[.6 0 0]) 
+%   will create a plot with a dark red line width of 2 points.
+%
+%   Example
+%      x = -pi:pi/10:pi;
+%      y = tan(sin(x)) - sin(tan(x));
+%      plot(x,y,'--rs','LineWidth',2,...
+%                      'MarkerEdgeColor','k',...
+%                      'MarkerFaceColor','g',...
+%                      'MarkerSize',10)
+%
+%   See also PLOTTOOLS, SEMILOGX, SEMILOGY, LOGLOG, PLOTYY, PLOT3, GRID,
+%   TITLE, XLABEL, YLABEL, AXIS, AXES, HOLD, LEGEND, SUBPLOT, SCATTER.
+
+%   If the NextPlot axes property is "replace" (HOLD is off), PLOT resets 
+%   all axes properties, except Position, to their default values,
+%   deletes all axes children (line, patch, text, surface, and
+%   image objects), and sets the View property to [0 90].
+%   Copyright 1984-2009 The MathWorks, Inc. 
+%   Built-in function.
+结束
+
+%PLOT3  Plot lines and points in 3-D space.
+%   PLOT3() is a three-dimensional analogue of PLOT().
+% 
+%   PLOT3(x,y,z), where x, y and z are three vectors of the same length,
+%   plots a line in 3-space through the points whose coordinates are the
+%   elements of x, y and z.
+% 
+%   PLOT3(X,Y,Z), where X, Y and Z are three matrices of the same size,
+%   plots several lines obtained from the columns of X, Y and Z.
+% 
+%   Various line types, plot symbols and colors may be obtained with
+%   PLOT3(X,Y,Z,s) where s is a 1, 2 or 3 character string made from
+%   the characters listed under the PLOT command.
+% 
+%   PLOT3(x1,y1,z1,s1,x2,y2,z2,s2,x3,y3,z3,s3,...) combines the plots
+%   defined by the (x,y,z,s) fourtuples, where the x's, y's and z's are
+%   vectors or matrices and the s's are strings.
+% 
+%   Example: A helix:
+% 
+%       t = 0:pi/50:10*pi;
+%       plot3(sin(t),cos(t),t);
+% 
+%   PLOT3 returns a column vector of handles to lineseries objects, one
+%   handle per line. The X,Y,Z triples, or X,Y,Z,S quads, can be 
+%   followed by parameter/value pairs to specify additional 
+%   properties of the lines.
+%
+%   See also PLOT, LINE, AXIS, VIEW, MESH, SURF.
+
+%-------------------------------
+%   Additional details:
+%
+%
+%   If the NextPlot axis property is REPLACE (HOLD is off), PLOT3 resets 
+%   all axis properties, except Position, to their default values, and
+%   deletes all axis children (line, patch, text, surface, and
+%   image objects).
+%   Copyright 1984-2003 The MathWorks, Inc.
+%   Built-in function.
+结束
+
+%LENGTH   Length of vector.
+%   LENGTH(X) returns the length of vector X.  It is equivalent
+%   to MAX(SIZE(X)) for non-empty arrays and 0 for empty ones.
+%  
+%   See also NUMEL.
+
+%   Copyright 1984-2005 The MathWorks, Inc.
+%   Built-in function.
+结束
+
+function varargout = fplot(varargin)
+%FPLOT   Plot 2-D function
+%   FPLOT(FUN) plots the function FUN between the limits of the current
+%   axes, with a default of [-5 5].
+%
+%   FPLOT(FUN,LIMS) plots the function FUN between the x-axis limits
+%   specified by LIMS = [XMIN XMAX]. 
+%
+%   FPLOT(...,'LineSpec') plots with the given line specification.
+%
+%   FPLOT(X,Y,LIMS) plots the parameterized curve with coordinates
+%   X(T), Y(T) for T between the values specified by LIMS = [TMIN TMAX].
+%
+%   H = FPLOT(...) returns a handle to the function line object created by FPLOT.
+%
+%   FPLOT(AX,...) plots into the axes AX instead of the current axes.
+%
+%   Examples:
+%       fplot(@sin)
+%       fplot(@(x) x.^2.*sin(1./x),[-1,1])
+%       fplot(@(x) sin(1./x), [0 0.1])
+%
+%   If your function cannot be evaluated for multiple x values at once,
+%   you will get a warning and somewhat reduced speed:
+%       f = @(x,n) abs(exp(-1j*x*(0:n-1))*ones(n,1));
+%       fplot(@(x) f(x,10),[0 2*pi])
+%
+%   See also FPLOT3, FSURF, FCONTOUR, FIMPLICIT, PLOT, FUNCTION_HANDLE.
+
+%   Copyright 1984-2016 The MathWorks, Inc.
+
+    % Parse possible Axes input
+    [cax, args] = axescheck(varargin{:});
+    
+    narginchk(1,inf);
+    nargoutchk(0,2);
+    doPlot = (nargout < 2);
+    fn = args(1);
+    args(1) = [];
+
+    extraOpts = {};
+    linespecFound = false;
+
+    function searchLinespec()
+        if ~linespecFound && ~isempty(args) && isa(args{1},'char')
+            [l,c,m,msg] = colstyle(args{1},'plot');
+            if isempty(msg)
+                linespecFound = true;
+                if ~isempty(l)
+                    extraOpts = [extraOpts, {'LineStyle'}, l];
+                end
+                if ~isempty(c)
+                    extraOpts = [extraOpts, {'Color'}, c];
+                end
+                if ~isempty(m)
+                    extraOpts = [extraOpts, {'Marker'}, m];
+                end
+                args(1) = [];
+            end
+        end
+    end
+
+
+    % TODO: char that is not an N/V pair thing
+    if ~isempty(args) && (isa(args{1},'function_handle') || isa(args{1}, 'sym'))
+        fn{end+1} = args(1);
+        args(1) = [];
+    end
+
+    if ~isempty(args) && (isa(args{1},'function_handle') || isa(args{1}, 'sym'))
+        error(message('MATLAB:fplot:TooManyFunctions'));
+    end
+
+    searchLinespec;
+
+    limits = [];
+    if ~isempty(args) && isnumeric(args{1}) && isequal(size(args{1}), [1,2])
+        limits = args{1};
+        args(1) = [];
+        matlab.graphics.function.internal.checkRangeVector(limits);
+    end
+
+    searchLinespec;
+
+    if ~isempty(limits) && ~isempty(args) && isnumeric(args{1}) && isscalar(args{1})
+        if round(args{1}) == args{1} && args{1} > 1 && isfinite(args{1})
+            extraOpts = [extraOpts, {'MeshDensity', args{1}+1}];
+        else
+            warning(message('MATLAB:fplot:ToleranceDeprecated'));
+        end
+        args(1) = [];
+    end
+
+    searchLinespec;
+
+    if numel(fn)==1 && ischar(fn{1})
+        fn{1} = str2fn(fn{1});
+        if nargin(fn{1}) > 1
+            error(message('MATLAB:fplot:TooManyVariables'));
+        end
+        warning(message('MATLAB:fplot:StringFunctionsDeprecated',func2str(fn{1})));
+    end
+
+    for k=1:numel(fn)
+        if isa(fn{k},'function_handle') && nargin(fn{k}) > 1
+            error(message('MATLAB:fplot:TooManyVariables'));
+        end
+        if isa(fn{k},'sym') && ...
+            ~isempty(strfind(char(feval(symengine,'symobj::map',formula(fn{k}),'testtype','Type::Arithmetical')),'FALSE'))
+            error(message('MATLAB:fplot:InvalidExpression'));
+        end
+    end
+
+    if numel(fn)==1 && isa(fn{1},'function_handle')
+        fn{1} = splitFunctionHandle(fn{1});
+    end
+
+    if numel(fn)==1
+        validParameters = properties('matlab.graphics.function.FunctionLine');
+    else
+        validParameters = properties('matlab.graphics.function.ParameterizedFunctionLine');
+    end
+
+    for k=1:2:numel(args)
+        try
+            validatestring(args{k},validParameters);
+        catch
+            if isnumeric(args{k})
+                strArgs = num2str(args{k});
+            else
+                strArgs = char(args{k});
+            end
+            if length(strArgs) > 10
+                strArgs = [strArgs(1:7) '...'];
+            end
+            error(message('MATLAB:fplot:InvalidParameter',strArgs));
+        end
+    end
+
+    if mod(numel(args),2)~=0
+        error(message('MATLAB:fplot:InvalidPairs'));
+    end
+
+    hold_state = true;
+    if doPlot && (isempty(cax) || ishghandle(cax,'axes'))
+        cax = newplot(cax);
+        hold_state = ishold(cax);
+    end
+    if nargout < 2
+        extraOpts = [extraOpts, {'Parent'}, {cax}];
+    end
+
+    hObj = vectorizeFplot(cax,fn,limits,extraOpts,args);
+
+    if ~hold_state
+        box(cax,'on');
+        axis(cax,'tight');
+    end
+
+    if nargout == 1
+        varargout = {hObj(:)};
+    elseif nargout == 2
+        warning(message('MATLAB:fplot:TwoOutputsDeprecated'));
+        varargout = {hObj.XData, hObj.YData};
+    end
+end
+
+
+function hObj = vectorizeFplot(cax,fn,limits,extraOpts,args)
+    for i=1:numel(fn)
+        if ~iscell(fn{i})
+            if ischar(fn{i})
+                fn{i} = splitString(fn{i});
+            elseif isscalar(fn{i}) % TODO: symfun
+                fn{i} = fn(i);
+            else
+                fn{i} = num2cell(fn{i});
+            end
+        end
+    end
+    if 1==numel(fn)
+        hObj = cellfun(@(f) singleFplot(cax,{f},limits,extraOpts,args),fn{1},'UniformOutput',false);
+    else
+        if numel(fn{1})==1
+            fn{1} = repmat(fn{1},size(fn{2}));
+        end
+        if numel(fn{2})==1
+            fn{2} = repmat(fn{2},size(fn{1}));
+        end
+        hObj = cellfun(@(f1,f2) singleFplot(cax,{f1,f2},limits,extraOpts,args),fn{1},fn{2},'UniformOutput',false);
+    end
+    hObj = [hObj{:}];
+end
+
+function hObj=singleFplot(cax,fn,limits,extraOpts,args)
+    % plot an individual function
+    ax = cax;
+    if ~isempty(ax) && ~ishghandle(ax, 'axes')
+        ax = ancestor(ax,'axes');
+    end
+    if ishghandle(ax,'axes')
+        [autostyle,autocolor,automarker] = nextstyle(ax,true,true,false);
+        if ~any(cellfun(@(x) isequal(x,'Color'),args)) && ~any(cellfun(@(x) isequal(x,'Color'),extraOpts))
+            extraOpts = [extraOpts, {'Color'}, {autocolor}];
+        end
+        if ~any(cellfun(@(x) isequal(x,'LineStyle'),args)) && ~any(cellfun(@(x) isequal(x,'LineStyle'),extraOpts))
+            extraOpts = [extraOpts, {'LineStyle'}, {autostyle}];
+        end
+        if ~any(cellfun(@(x) isequal(x,'Marker'),args)) && ~any(cellfun(@(x) isequal(x,'Marker'),extraOpts))
+            extraOpts = [extraOpts, {'Marker'}, {automarker}];
+        end
+    end
+
+    nvars = countvars(fn);
+
+    if numel(fn) == 1
+        if nvars > 1
+            error(message('MATLAB:fplot:TooManyVariables'));
+        end
+        if ~isempty(limits)
+            extraOpts = [extraOpts, {'XRange'}, {limits}];
+        end
+        hObj = matlab.graphics.function.FunctionLine(fn{1},extraOpts{:},args{:});
+    else
+        assert(numel(fn)==2);
+        if nvars > 1
+            error(message('MATLAB:fplot:TooManyVariables'));
+        end
+        if ~isempty(limits)
+            extraOpts = [extraOpts, {'TRange'}, {limits}];
+        end
+        hObj = matlab.graphics.function.ParameterizedFunctionLine(fn{1},fn{2},[],extraOpts{:},args{:});    
+    end
+end
+
+function fns=splitString(fn)
+    % 'cos(x)' -> {'cos(x)'}, '[cos(x),sin(x)]' -> {'cos(x)','sin(x)'}
+    fn = strtrim(fn);
+    if fn(1)=='[' && fn(end)==']'
+        fns = strsplit(fn(2:end-1),',');
+        % to not split 'besseli(1,x)', join strings until the number of opening and closing parens matches
+        for i=1:numel(fns)-1
+            while i<numel(fns) && sum(fns{i}=='(') > sum(fns{i}==')')
+                fns{i} = strjoin(fns(i:i+1),',');
+                fns(i+1) = [];
+            end
+        end
+        fns = cellfun(@strtrim,fns,'UniformOutput',false);
+    else
+        fns = {fn};
+    end
+end
+
+function fn=splitFunctionHandle(fn)
+  fnAtZero = fn(0);
+  if ~isscalar(fnAtZero)
+    if isrow(fnAtZero)
+        fn = arrayfun(@(n)splitVectorFunction(fn,n),1:numel(fnAtZero),'UniformOutput',false);
+    else
+        error(message('MATLAB:fplot:NonScalarFunction'));
+    end
+  end
+end
+
+function fn1=splitVectorFunction(fn,n)
+  function res=nthRow(x)
+    res = fn(x(:));
+    res = res(:,n).';
+  end
+  fn1 = @nthRow;
+end
+
+function fn=str2fn(str)
+  % Check for function vs. identity expression such as 't',
+  % and convert to a consistent form
+  vars = symvar(str);
+  if isempty(vars)
+    fn = eval(['@(t)' str '*ones(size(t))']);
+  elseif exist(str,'builtin') || exist(str,'file')
+    fn = str2func(str);
+  else
+    str = vectorize(str);
+    vars = reshape(vars,1,[]);
+    vars = [vars; repmat({','},1,numel(vars))];
+    vars{end,end}=')';
+    vars = ['@(' vars{:}];
+    fn = eval([vars str]);
+  end
+end
+结束
+
+function hh = ezplot(varargin)
+    %EZPLOT   Easy to use function plotter
+    %   EZPLOT(FUN) plots the function FUN(X) over the default domain
+    %   -2*PI < X < 2*PI, where FUN(X) is an explicitly defined function of X.
+    %
+    %   EZPLOT(FUN2) plots the implicitly defined function FUN2(X,Y) = 0 over
+    %   the default domain -2*PI < X < 2*PI and -2*PI < Y < 2*PI.
+    %
+    %   EZPLOT(FUN,[A,B]) plots FUN(X) over A < X < B.
+    %   EZPLOT(FUN2,[A,B]) plots FUN2(X,Y) = 0 over A < X < B and A < Y < B.
+    %
+    %   EZPLOT(FUN2,[XMIN,XMAX,YMIN,YMAX]) plots FUN2(X,Y) = 0 over
+    %   XMIN < X < XMAX and YMIN < Y < YMAX.
+    %
+    %   EZPLOT(FUNX,FUNY) plots the parametrically defined planar curve FUNX(T)
+    %   and FUNY(T) over the default domain 0 < T < 2*PI.
+    %
+    %   EZPLOT(FUNX,FUNY,[TMIN,TMAX]) plots FUNX(T) and FUNY(T) over
+    %   TMIN < T < TMAX.
+    %
+    %   EZPLOT(FUN,[A,B],FIG), EZPLOT(FUN2,[XMIN,XMAX,YMIN,YMAX],FIG), or
+    %   EZPLOT(FUNX,FUNY,[TMIN,TMAX],FIG) plots the function over the
+    %   specified domain in the figure window FIG.
+    %
+    %   EZPLOT(AX,...) plots into AX instead of GCA or FIG.
+    %
+    %   H = EZPLOT(...) returns handles to the plotted objects in H.
+    %
+    %   Examples:
+    %   The easiest way to express a function is via a string:
+    %      ezplot('x^2 - 2*x + 1')
+    %
+    %   One programming technique is to vectorize the string expression using
+    %   the array operators .* (TIMES), ./ (RDIVIDE), .\ (LDIVIDE), .^ (POWER).
+    %   This makes the algorithm more efficient since it can perform multiple
+    %   function evaluations at once.
+    %      ezplot('x.*y + x.^2 - y.^2 - 1')
+    %
+    %   You may also use a function handle to an existing function. Function
+    %   handles are more powerful and efficient than string expressions.
+    %      ezplot(@humps)
+    %      ezplot(@cos,@sin)
+    %
+    %   EZPLOT plots the variables in string expressions alphabetically.
+    %      subplot(1,2,1), ezplot('1./z - log(z) + log(-1+z) + t - 1')
+    %   To avoid this ambiguity, specify the order with an anonymous function:
+    %      subplot(1,2,2), ezplot(@(z,t)1./z - log(z) + log(-1+z) + t - 1)
+    %
+    %   If your function has additional parameters, for example k in myfun:
+    %      %-----------------------%
+    %      function z = myfun(x,y,k)
+    %      z = x.^k - y.^k - 1;
+    %      %-----------------------%
+    %   then you may use an anonymous function to specify that parameter:
+    %      ezplot(@(x,y)myfun(x,y,2))
+    %
+    %   See also EZCONTOUR, EZCONTOURF, EZMESH, EZMESHC, EZPLOT3, EZPOLAR,
+    %            EZSURF, EZSURFC, PLOT, VECTORIZE, FUNCTION_HANDLE.
+    
+    %   Copyright 1984-2009 The MathWorks, Inc.
+    
+    % Parse possible Axes input
+    [cax, args, nargs] = axescheck(varargin{:});
+    
+    f = args{1};
+    args = args(2:end);
+    
+    if ~ischar(f) && ~isa(f, 'inline') && ~isa(f, 'function_handle')
+        error(message('MATLAB:ezplot:InvalidExpression'));
+    end
+    twofuns = 0;
+    if (nargs > 1)
+        twofuns = (ischar(args{1}) || isa(args{1}, 'inline') ...
+            || isa(args{1}, 'function_handle'));
+        if (length(args) > 1 && length(args{2}) <= 1)
+            twofuns = 0;
+        end
+    end
+    
+    % Place f into "function" form (inline).
+    if (twofuns)
+        [f, fx0, varx] = ezfcnchk(f, 0, 't');
+    else
+        [f, fx0, varx] = ezfcnchk(f);
+    end
+    
+    vars = varx;
+    nvars = length(vars);
+    if isa(f, 'function_handle') && nvars == 0
+        nvars = nargin(f);  % can determine #args without knowing their names
+    end
+    labels = {fx0};
+    if ~iscell(f)
+        f = {f};
+    end
+    
+    if (twofuns)
+        % Determine whether the two input functions have the same
+        % independent variable.  That is, in the case of ezplot(x,y),
+        % check that x = x(t) and y = y(t).  If not (x = x(p) and
+        % y = y(q)), reject the plot.
+        [fy, fy0, vary] = ezfcnchk(args{1}, 0, 't');
+        nvars = max(nvars, length(vary));
+        if isa(fy, 'function_handle') && isempty(vary)
+            nvars = max(nvars, nargin(fy));
+        end
+        f{2} = fy;
+        labels{2} = fy0;
+        
+        % This is the case of ezplot('2','f(q)') or ezplot('f(p)','3').
+        if isempty(varx) || isempty(vary)
+            vars = union(varx, vary);
+        end
+    end
+    
+    vars = vars(~cellfun('isempty', vars));
+    if isempty(vars)
+        if (twofuns)
+            vars = {'t'};
+        else
+            if (nvars == 2)
+                vars = {'x' 'y'};
+            else
+                vars = {'x'};
+            end
+        end
+    end
+    nvars = max(nvars, length(vars));
+    ninputs = length(args);
+    
+    if (ninputs == 1 && ~twofuns)
+        if length(args{1}) == 4 && nvars == 2
+            V = args;
+            args{1} = [V{1}(1), V{1}(2)];
+            args{2} = [V{1}(3), V{1}(4)];
+        end
+        % ezplot(f,[xmin,ymin]) covered in the default setting.
+    end
+    
+    if ~twofuns
+        switch nvars
+            case 1
+                % Account for variables of [char] length > 1
+                [hp, cax] = ezplot1(cax, f{1}, vars, labels, args{:});
+                title(cax, texlabel(labels), 'interpreter', 'tex');
+                if ninputs > 0 && isa(args{1}, 'double') && length(args{1}) == 4
+                    axis(cax, args{1});
+                elseif ninputs > 1 && isa(args{2}, 'double') && ...
+                        length(args{2}) == 4
+                    axis(cax, args{2});
+                end
+            case 2
+                hp = ezimplicit(cax, f{1}, vars, labels, args{:});
+            otherwise
+                if ischar(varargin{1}) 
+                    fmsg = varargin{1};
+                elseif (isa(f, 'function_handle'))
+                    fmsg = func2str(f);
+                else 
+                    fmsg = char(f);                        
+                end
+                error(message('MATLAB:ezplot:NonXYPlot', fmsg));
+        end
+    else
+        hp = ezparam(cax, f{1}, f{2}, vars, labels, args{2:end});
+    end
+    
+    if nargout > 0
+        hh = hp;
+    end
+end
+
+function [hp, newcax] = ezimplicit(cax, f, vars, labels, varargin)
+    % EZIMPLICIT Plot of an implicit function in 2-D.
+    %    EZIMPLICIT(cax,f,vars) plots in cax the string expression f
+    %    that defines an implicit function f(x,y) = 0 for x0 < x < x1
+    %    and y0 < y < y1, whose default values are x0 = -2*pi = y0
+    %    and x1 = 2*pi = y1.  The arguments of f are listed in vars and
+    %    a non-vector version of the function expression is in labels.
+    %
+    %   EZIMPLICIT(cax,f,vars,labels,[x0,x1]) plots the implicit function
+    %   f(x,y) = 0 for x0 < x < x1, x0 < y < x1.
+    %
+    %   EZIMPLICIT(cax,f,vars,labels,[x0,x1],[y0,y1]) plots the implicit
+    %   function f(x,y) = 0 for x0 < x < x1, y0 < y < y1.
+    %   In the case that f is not a function of x and y
+    %   (rather, say u and v), then the domain endpoints [u0,u1]
+    %   [v0,v1] are given alphabetically.
+    %
+    %   [HP,NEWCAX] = EZIMPLICIT(...) returns the handles to the plotted
+    %   objects in HP, and the axes used to plot the function in NEWCAX.
+    
+    % If f is created from a string equation f(x,y) = g(x,y), change
+    % the equal sign '=' to a minus sign '-'
+    eqnHasEqualSign = false;
+    if (isa(f, 'inline') && ~isempty(findstr(char(f), '=')))
+        symvars = argnames(f);
+        f = char(f);
+        f = [strrep(f, '=', '-(') ')'];
+        f = inline(f, symvars{:});
+        eqnHasEqualSign = true;
+    end
+    
+    % Choose the number of points in the plot
+    npts = 251; %odd # gives a chance to have point at origin for default limits
+    
+    fig = [];
+    switch length(vars)
+        case 0
+            x = 'x';
+            y = 'y';
+        case 1
+            x = vars{1};
+            y = 'y';
+        case 2
+            x = vars{1};
+            y = vars{2};
+        otherwise
+            % If there are more than 2 variables, send an error message
+            W = {vars{1}, vars{2}};
+            error(message('MATLAB:ezplot:NumericValues', setdiff( vars, W )));
+    end
+    % Define the computational space
+    switch (nargin - 3)
+        case 1
+            X = linspace(-2*pi, 2*pi, npts);
+            Y = X;
+        case 2
+            if length(varargin{1}) == 1
+                fig = varargin{1};
+                X = linspace(-2*pi, 2*pi, npts);
+                Y = X;
+            else
+                X = linspace(varargin{1}(1), varargin{1}(2), npts);
+                Y = X;
+            end
+        case 3
+            if length(varargin{1}) == 1
+                fig = varargin{1};
+                X = linspace(varargin{2}(1), varargin{2}(2), npts);
+                Y = X;
+            elseif length(varargin{2}) == 1 && length(varargin{1}) == 2
+                fig = varargin{2};
+                X = linspace(varargin{1}(1), varargin{1}(2), npts);
+                Y = X;
+            elseif length(varargin{2}) == 1 && length(varargin{1}) == 4
+                fig = varargin{2};
+                X = linspace(varargin{1}(1), varargin{1}(2), npts);
+                Y = linspace(varargin{1}(3), varargin{1}(4), npts);
+            else
+                X = linspace(varargin{1}(1), varargin{1}(2), npts);
+                Y = linspace(varargin{2}(1), varargin{2}(2), npts);
+            end
+    end
+    
+    [X, Y] = meshgrid(X, Y);
+    u = ezplotfeval(f, X, Y);
+    
+    % Determine u scale so that "most" of the u values
+    % are in range, but singularities are off scale.
+    
+    %remove imaginary parts
+    u(imag(u) ~= 0) = NaN;
+
+    uu = sort(u(isfinite(u)));
+    N = length(uu);
+    if N > 16
+        del = uu(fix(15 * N / 16)) - uu(fix(N / 16));
+        umin = max(uu(1) - del / 16, uu(fix(N / 16)) - del);
+        umax = min(uu(N) + del / 16, uu(fix(15 * N / 16)) + del);
+    elseif N > 0
+        umin = uu(1);
+        umax = uu(N);
+    else
+        umin = 0;
+        umax = 0;
+    end
+    if umin == umax
+        umin = umin - 1;
+        umax = umax + 1;
+    end
+    
+    % Eliminate vertical lines at discontinuities.
+    
+    ud = (0.5) * (umax - umin);
+    umean = (umax + umin) / 2;
+    [nr, nc] = size(u);
+    % First, search along the rows . . .
+    for j = 1:nr
+        k = 2:nc;
+        kc = find(abs(u(j, k) - u(j, k-1)) > ud);
+        ki = find(max(abs(u(j, k(kc)) - umean), abs(u(j, k(kc) - 1) - umean)));
+        if any(ki)
+            u(j, k(kc(ki))) = NaN;
+        end
+    end
+    % . . . then search along the columns.
+    for j = 1:nc
+        k = 2:nr;
+        kr = find(abs(u(k, j) - u(k - 1, j)) > ud );
+        kj = find(max(abs(u(k(kr), j) - umean), abs(u(k(kr) - 1, j) - umean)));
+        if any(kj)
+            u(k(kr(kj)), j) = NaN;
+        end
+    end
+    
+    % First check if cax was specified (strongest specification for plot axes)
+    if isempty(cax)
+        % Now allow the fig input to be honored
+        cax = determineAxes(fig);
+    end
+    
+
+    
+    [~, hp] = contour(cax, X(1, :), Y(:, 1), u, [0, 0], '-');
+    
+    if (isa(x, 'function_handle'))
+        xmsg = func2str(x);
+    else
+        xmsg = char(x);
+    end
+    if (isa(y, 'function_handle'))
+        ymsg = func2str(y);
+    else
+        ymsg = char(y);
+    end
+    xlabel(cax, texlabel(xmsg));
+    ylabel(cax, texlabel(ymsg));
+    if eqnHasEqualSign
+        title(cax, texlabel(labels{1}));
+    else
+        title(cax, texlabel([labels{1}, ' = 0']));
+    end
+    
+    newcax = cax;
+end
+
+function [hp, newcax] = ezparam(cax, x, y, vars, labels, varargin)
+    % EZPARAM Easy to use 2-d parametric curve plotter.
+    %   EZPARAM(cax,x,y,vars,labels) plots the planar curves r(t) = (x(t),y(t))
+    %   in cax.  The default domain in t [0,2*pi].  vars contains the common
+    %   argument of x and y, and labels contains non-vector versions of the
+    %   x and y expressions.
+    %
+    %   EZPARAM(cax,x,y,vars,labels,[tmin,tmax]) plots r(t) = (x(t),y(t)) for
+    %   tmin < t < tmax.
+    %
+    %   [HP,NEWCAX] = EZPARAM(...) returns the handles to the plotted
+    %   objects in HP, and the axes used to plot the function in NEWCAX.
+    
+    fig = [];
+    N = length(vars);
+    
+    Npts = 300;
+    
+    % Determine the domains in t:
+    switch (nargin - 3)
+        case 2
+            T = linspace(0, 2*pi, Npts);
+        case 3
+            if length(varargin{1}) == 1
+                fig = varargin{1};
+                T = linspace(0, 2 * pi, Npts);
+            else
+                T = linspace(varargin{1}(1), varargin{1}(2), Npts);
+            end
+        case 4
+            if length(varargin{2}) == 1
+                fig = varargin{2};
+                T = linspace(varargin{1}(1), varargin{1}(2), Npts);
+            elseif length(varargin{1}) == 1
+                fig = varargin{1};
+                T = linspace(varargin{2}(1), varargin{2}(2), Npts);
+            else
+                T = linspace(varargin{1}, varargin{2}, Npts);
+            end
+    end
+    
+    % First check if cax was specified (strongest specification for plot axes)
+    if isempty(cax)
+        % Now allow the fig input to be honored
+        cax = determineAxes(fig);
+    end
+    
+    % Create plot
+    cax = newplot(cax);
+    
+    switch N
+        case 1 % planar curve
+            X = ezplotfeval(x, T);
+            Y = ezplotfeval(y, T);
+            hp = plot(X, Y, 'parent', cax);
+            xlabel(cax, 'x');
+            ylabel(cax, 'y');
+            axis(cax, 'equal');
+            title(cax, ['x = ' texlabel(labels{1}), ', y = ' texlabel(labels{2})]);
+        otherwise
+            error(message('MATLAB:ezplot:ParametrizedSurface'))
+    end
+    
+    newcax = cax;
+end
+
+function [hp, newcax] = ezplot1(cax, f, vars, labels, xrange, fig)
+    %EZPLOT1 Easy to use function plotter.
+    %   EZPLOT1(cax,f,vars,labels) plots a graph of f(x) into cax
+    %   where f is a string or a symbolic expression representing a
+    %   mathematical expression involving a single symbolic variable,
+    %   say 'x'.
+    %   vars is the name of the variable and labels is a non-vector
+    %   version of the function expression.
+    %   The range of the x-axis is approximately  [-2*pi, 2*pi]
+    %
+    %   EZPLOT1(cax,f,vars,labels,xmin,xmax) or EZPLOT(f,[xmin,xmax])
+    %   uses the specified x-range instead of the default [-2*pi, 2*pi].
+    %
+    %   EZPLOT1(cax,f,vars,labels,[xmin xmax],fig) uses the specified
+    %   figure number, fig, instead of cax.
+    %
+    %   [HP,NEWCAX] = EZPLOT1(...) returns the handles to the plotted
+    %   objects in HP, and the axes used to plot the function in NEWCAX.
+    
+    % Set defaults
+    narginchk(4,6);
+    if nargin < 5
+        xrange = [-2*pi 2*pi];
+    end
+    if ischar(xrange)
+        xrange = eval(xrange);
+    end
+    if nargin < 6
+        fig = ancestor(cax, 'figure');
+    end
+    if nargin == 6
+        if length(xrange) == 1
+            xrange = [xrange fig];
+        elseif ischar(fig)
+            xrange = [xrange eval(fig)];
+        elseif ~isempty(cax)
+            fig = ancestor(cax, 'figure');
+        end
+    end
+    
+    % Check for equations of the form "x=2"
+    if (isa(f, 'inline') && ~isempty(findstr(char(f), '=')))
+        error(message('MATLAB:ezplot:NonExplicitFunction'));
+    end
+    
+    % First check if cax was specified (strongest specification for plot axes)
+    if isempty(cax)
+        % Now allow the fig input to be honored
+        cax = determineAxes(fig);
+    end
+    
+    % Create plot
+    cax = newplot(cax);
+    
+    cleaner = doWarnSetup();
+    
+    % Sample on initial interval.
+    fig = ancestor(cax, 'figure');
+    pixpos = hgconvertunits(fig, get(cax, 'Position'), get(cax, 'Units'), ...
+        'pixels', get(cax, 'Parent'));
+    % npts = # of pixels in the axis width.
+    npts = pixpos * [0;0;1;0];
+    t = (0:npts-1)/(npts-1);
+    xmin = min(xrange);
+    xmax = max(xrange);
+    x = xmin + t * (xmax - xmin);
+    
+    % Get y values, and possibly also change f to be vectorized
+    [y, f, loopflag] = ezplotfeval(f, x);
+    
+    k = find(abs(imag(y)) > 1.e-6*abs(real(y)));
+    if any(k)
+        x(k) = [];
+        y(k) = [];
+    end
+    npts = length(y);
+    if isempty(y) && npts == 0
+        delete(cleaner); %destroy cleaner object to restore warning state
+        warning(message('MATLAB:ezplot:NoRealValues', labels{ 1 }));
+        return
+    elseif loopflag
+        % Warnings are off, so turn them on temporarily and issue a warning
+        % message similar to what would have come from ezplotfeval.
+        delete(cleaner); %destroy cleaner object to restore warning state
+        warning(message('MATLAB:ezplot:NotVectorized'));
+        doWarnSetup(); %disable warnings again
+    end
+    % Reduce to an "interesting" x interval.
+    
+    if (npts > 1) && (nargin < 5)
+        dx = x(2) - x(1);
+        dy = diff(y) / dx;
+        dy(npts) = dy(npts - 1);
+        k = find(abs(dy) > .01);
+        if isempty(k)
+            k = 1:npts;
+        end
+        xmin = x(min(k));
+        xmax = x(max(k));
+        if xmin < floor(4 * xmin) / 4 + dx
+            xmin = floor(4 * xmin) / 4;
+        end
+        if xmax > ceil(4 * xmax) / 4 - dx
+            xmax = ceil(4 * xmax) / 4;
+        end
+        x = xmin + t * (xmax - xmin);
+        y = ezplotfeval(f, x);
+        k = find(abs(imag(y)) > 1.e-6*abs(real(y)));
+        if any(k)
+            y(k) = NaN;
+        end
+    end
+    
+    % Determine y scale so that "most" of the y values
+    % are in range, but singularities are off scale.
+    
+    y = real(y);
+    u = sort(y(isfinite(y)));
+    npts = length(u);
+    if isempty(u)
+        u = nan(size(x));
+        npts = numel(x);
+    end
+    ymin = u(1);
+    ymax = u(npts);
+    if npts > 4
+        del = u(fix(7 * npts / 8)) - u(fix(npts / 8));
+        ymin = max(u(1) - del / 8, u(fix(npts / 8)) - del);
+        ymax = min(u(npts) + del / 8, u(fix(7 * npts / 8)) + del);
+    end
+    
+    % Eliminate vertical lines at discontinuities.
+    
+    k = 2:length(y);
+    k = find(((y(k) > ymax / 2) & (y(k - 1) < ymin / 2)) | ...
+        ((y(k) < ymin / 2) & (y(k - 1) > ymax / 2)));
+    if any(k)
+        y(k) = NaN;
+    end
+    
+    % Plot the function
+    
+    hp = plot(x, y, 'parent', cax);
+    if ymax > ymin
+        axis(cax, [xmin xmax ymin ymax]);
+    else
+        axis(cax, [xmin xmax get(cax, 'ylim')]);
+    end
+    
+    xlabel(cax, texlabel(vars{1}));
+    title(cax, texlabel(labels{1}), 'Interpreter', 'none');
+    
+    newcax = cax;
+end
+
+function cax = determineAxes(fig)
+    % Helper function that takes the specified figure handle.  If the handle is
+    % not empty, find its current axes.  If it is empty, use the current axes.
+    if ~isempty(fig)
+        % In case a figure handle was specified, but the figure does not exist,
+        % create one.
+        figure(fig);
+        cax = gca(fig);
+    else
+        % Neither cax nor fig was specified, so use gca
+        cax = gca;
+    end
+end
+
+function cleaner = doWarnSetup
+[ state.lastWarnMsg, state.lastWarnId ] = lastwarn;
+state.warnStates =warning('off'); %#ok<WNOFF>
+cleaner = onCleanup(@()restoreWarningState(state));
+end
+
+function restoreWarningState(oldstate)
+warning(oldstate.warnStates);
+lastwarn(oldstate.lastWarnMsg, oldstate.lastWarnId);
+end
+结束
+
+function r = limit(f,x,a,dir)
+%LIMIT    Limit of an expression.
+%   LIMIT(F,x,a) takes the limit of the symbolic expression F as x -> a.
+%   LIMIT(F,a) uses symvar(F) as the independent variable.
+%   LIMIT(F) uses a = 0 as the limit point.
+%   LIMIT(F,x,a,'right') or LIMIT(F,x,a,'left') specify the direction
+%   of a one-sided limit.
+%
+%   Examples:
+%     syms x a t h;
+%
+%     limit(sin(x)/x)                 returns   1
+%     limit((x-2)/(x^2-4),2)          returns   1/4
+%     limit((1+2*t/x)^(3*x),x,inf)    returns   exp(6*t)
+%     limit(1/x,x,0,'right')          returns   inf
+%     limit(1/x,x,0,'left')           returns   -inf
+%     limit((sin(x+h)-sin(x))/h,h,0)  returns   cos(x)
+%     v = [(1 + a/x)^x, exp(-x)];
+%     limit(v,x,inf,'left')           returns   [exp(a),  0]
+
+%   Copyright 1993-2011 The MathWorks, Inc.
+
+if ~isa(f,'sym'),   f = sym(f); end
+if builtin('numel',f) ~= 1,  f = normalizesym(f);  end
+
+% Default x is symvar(f,1).
+% Default a is 0.
+
+% dir is empty unless 4 inputs are provided.
+
+switch nargin
+case 1
+   a = '0';
+   x = symvar(f,1);
+   dir = 'Real';
+case 2
+   a = x;
+   x = symvar(f,1);
+   dir = 'Real';
+case 3
+   dir = 'Real';
+case 4
+   % check that the argument is valid
+   dir = validatestring(dir, {'Left', 'Right'}, 'limit', 'direction', 4);   
+end
+
+if ~sym.isVariable(sym(x))
+   error(message('symbolic:limit:InvalidVariable'))
+end
+if ~isscalar(a)
+   error(message('symbolic:limit:NonScalarPoint'))
+end    
+
+args = privResolveArgs(f, x, a);
+rSym = mupadmex('symobj::map', args{1}.s, 'symobj::limit', args{2}.s, args{3}.s, dir);
+r = privResolveOutput(rSym, args{1});
+结束
+
+function [ax,args,nargs] = axescheck(varargin)
+% This function is undocumented and may change in a future release.
+
+%AXESCHECK Process Axes objects from input list
+%   [AX,ARGS,NARGS] = AXESCHECK(ARG1,ARG2,...) looks for Axes provided in
+%   the input arguments. It first checks if ARG1 is an Axes. If so, it is
+%   removed from the list in ARGS and the count in NARGS. AXESCHECK then
+%   checks the arguments for Name, Value pairs with the name 'Parent'. If a
+%   graphics object is found following the last occurance of 'Parent', then
+%   all 'Parent', Value pairs are removed from the list in ARGS and the
+%   count in NARGS. ARG1 (if it is an Axes), or the value following the
+%   last occurance of 'Parent', is returned in AX. Double handles to
+%   graphics objects are converted to graphics objects. If AX is determined
+%   to be a handle to a deleted graphics object, an error is thrown.
+
+%    Copyright 1984-2015 The MathWorks, Inc.
+
+args = varargin;
+nargs = nargin;
+ax=[];
+
+% Check for either a scalar Axes handle, or any size array of Axes.
+% 'isgraphics' will catch numeric graphics handles, but will not catch
+% deleted graphics handles, so we need to check for both separately.
+if (nargs > 0) && ...
+        ((isscalar(args{1}) && isgraphics(args{1},'axes')) ...
+        || isa(args{1},'matlab.graphics.axis.AbstractAxes') || isa(args{1},'matlab.ui.control.UIAxes'))
+  ax = handle(args{1});
+  args = args(2:end);
+  nargs = nargs-1;
+end
+if nargs > 0
+  inds = find(strcmpi('parent',args));
+  if ~isempty(inds)
+    inds = unique([inds inds+1]);
+    pind = inds(end);
+    
+    % Check for either a scalar handle, or any size array of graphics objects.
+    % If the argument is passed using the 'Parent' P/V pair, then we will
+    % catch any graphics handle(s), and not just Axes.
+    if nargs >= pind && ...
+            ((isscalar(args{pind}) && isgraphics(args{pind})) ...
+            || isa(args{pind},'matlab.graphics.Graphics'))
+      ax = handle(args{pind});
+      args(inds) = [];
+      nargs = length(args);
+    end
+  end
+end
+
+% Make sure that the graphics handle found is a scalar handle, and not an
+% empty graphics array or non-scalar graphics array.
+if (nargs < nargin) && ~isscalar(ax)
+    throwAsCaller(MException(message('MATLAB:graphics:axescheck:NonScalarHandle')));
+end
+
+% Throw an error if a deleted graphics handle is detected.
+if ~isempty(ax) && ~isvalid(ax)
+  % It is possible for a non-Axes graphics object to get through the code
+  % above if passed as a Name/Value pair. Throw a different error message
+  % for Axes vs. other graphics objects.
+  if(isa(ax,'matlab.graphics.axis.AbstractAxes') || isa(ax,'matlab.ui.control.UIAxes'))
+    throwAsCaller(MException(message('MATLAB:graphics:axescheck:DeletedAxes')));
+  else
+    throwAsCaller(MException(message('MATLAB:graphics:axescheck:DeletedObject')));
+  end
+end
+结束
+
+function hh = ezplot3(varargin)
+%EZPLOT3   Easy to use 3-d parametric curve plotter
+%   EZPLOT3(FUNX,FUNY,FUNZ) plots the spatial curve FUNX(T), FUNY(T), and
+%   FUNZ(T) over the default domain 0 < T < 2*PI.
+%
+%   EZPLOT3(FUNX,FUNY,FUNZ,[TMIN,TMAX]) plots the curve FUNX(T), FUNY(T),
+%   and FUNZ(T) over TMIN < T < TMAX.
+%
+%   EZPLOT3(FUNX,FUNY,FUNZ,'animate') or
+%   EZPLOT(FUNX,FUNY,FUNZ,[TMIN,TMAX],'animate') produces an animated trace
+%   of the spatial curve.
+%
+%   EZPLOT3(AX,...) plots into AX instead of GCA.
+%
+%   H = EZPLOT3(...) returns handles to the plotted objects in H.
+%
+%   Examples:
+%   The easiest way to express a function is via a string:
+%      ezplot3('cos(t)','t*sin(t)','sqrt(t)')
+%
+%   One programming technique is to vectorize the string expression using
+%   the array operators .* (TIMES), ./ (RDIVIDE), .\ (LDIVIDE), .^ (POWER).
+%   This makes the algorithm more efficient since it can perform multiple
+%   function evaluations at once.
+%      ezplot3('cos(t)','t.*sin(t)','sqrt(t)')
+%
+%   You may also use a function handle to an existing function or an
+%   anonymous function. These are more powerful and efficient than string
+%   expressions.
+%      ezplot3(@cos,@(t)t.*sin(t),@sqrt)
+%
+%   If your function has additional parameters, for example k in myfuntk:
+%      %-----------------------%
+%      function s = myfuntk(t,k)
+%      s = t.^k .* sin(t);
+%      %-----------------------%
+%   then you may use an anonymous function to specify that parameter:
+%
+%      ezplot3(@cos,@(t)myfuntk(t,1),@sqrt)
+%
+%   See also EZCONTOUR, EZCONTOURF, EZMESH, EZMESHC, EZPLOT, EZPOLAR,
+%            EZSURF, EZSURFC, PLOT, PLOT3, VECTORIZE, FUNCTION_HANDLE.
+
+%   Copyright 1984-2005 The MathWorks, Inc.
+
+% Parse possible Axes input
+[cax,args,nargs] = axescheck(varargin{:});
+
+% Create plot 
+cax = newplot(cax);
+fig = ancestor(cax,'figure');
+
+% Check each input function or expression
+[x,x0,xargs] = ezfcnchk(args{1},0,'t');
+[y,y0,yargs] = ezfcnchk(args{2},0,'t');
+[z,z0,zargs] = ezfcnchk(args{3},0,'t');
+
+allargs = union(xargs,union(yargs,zargs));
+numargs = length(allargs);
+if (ismember({''},allargs)), numargs = max(1, numargs-1); end
+if (numargs == 2)
+   error(message('MATLAB:ezplot3:ParameterizedSurface'))
+elseif (numargs > 2)
+   error(message('MATLAB:ezplot3:InvalidFunctions'));
+end
+
+Aflag = 0; % Animation option.
+
+Npts = 300;
+
+% Determine the domain in t:
+switch nargs
+   case 3
+      T =  linspace(0,2*pi,Npts);
+   case 4
+      if isa(args{4},'double')   
+         T = linspace(args{4}(1),args{4}(2),Npts);
+      elseif isequal(args{4},'animate')
+         Aflag = 1;
+         T =  linspace(0,2*pi,Npts);
+      else
+         T =  linspace(0,2*pi,Npts);
+      end
+   case 5
+      if isa(args{4},'double') && isequal(args{5},'animate') 
+         T = linspace(args{4}(1),args{4}(2),Npts);
+         Aflag = 1;
+      elseif isequal(args{4},'animate') && isa(args{5},'double')
+         T = linspace(args{5}(1),args{5}(2),Npts);
+         Aflag = 1;
+      else
+         T = linspace(0,2*pi,Npts);
+      end
+end
+
+H = findobj(fig,'Type','uicontrol','String','Repeat');
+if ~isempty(H) && ~Aflag
+   delete(H);
+end
+
+% Evaluate each of (X,Y,Z)
+X = ezplotfeval(x,T);
+if numel(X) == 1
+   X = X*ones(size(T));
+end
+Y = ezplotfeval(y,T);
+if numel(Y) == 1
+   Y = Y*ones(size(T));
+end
+Z = ezplotfeval(z,T);
+if numel(Z) == 1
+   Z = Z*ones(size(T));
+end
+
+% Option to Return a handle.
+h = plot3(X,Y,Z,'parent',cax);
+
+xlabel(cax,'x'); ylabel(cax,'y'); zlabel(cax,'z');
+title(cax,['x = ' texlabel(x0), ', y = ' texlabel(y0), ', z = ' texlabel(z0)]);
+grid(cax,'on');
+
+if Aflag
+   hold(cax,'on');
+   H = plot3(X(1),Y(1),Z(1),'r.','markersize',24,'parent',cax);
+
+   dk = ceil(length(Y)/Npts);
+   % run once with timing so that we see how fast this machine is
+   tic
+   set(H,'xdata',X(1),'ydata',Y(1),'zdata',Z(1));
+   drawnow;
+   tm = 0.00003/toc;
+   for k = 2:dk:length(Y)
+      set(H,'xdata',X(k),'ydata',Y(k),'zdata',Z(k));
+      pause(tm);
+      drawnow;
+   end
+   % Define the userdata for the callback.
+   ud.x = X; ud.y = Y; ud.z = Z; ud.dk = dk; ud.h = H; ud.tm = tm; ud.cax = cax;
+   set(fig,'userdata',ud);
+   % Define the callback string.
+   s = ['ud = get(gcbf,''userdata'');' ...
+        'hold(ud.cax,''on'');' ...
+        'tm = ud.tm;' ...
+        'for k = 1:ud.dk:length(ud.y),' ...
+           'set(ud.h,''xdata'',ud.x(k),''ydata'',ud.y(k),''zdata'',ud.z(k));' ...
+           'pause(tm);' ...
+           'drawnow;' ...
+        'end,' ...
+        'hold(ud.cax,''off'');'];
+   uicontrol('Units','normal','Position',[.02 .01 .1 .06], ...
+             'String','Repeat','CallBack',s,'parent',fig);
+
+end
+
+if nargout > 0
+  hh = h;
+end
+结束
+
+function hpol = polar(varargin)
+    %POLAR  Polar coordinate plot.
+    %   POLAR(THETA, RHO) makes a plot using polar coordinates of
+    %   the angle THETA, in radians, versus the radius RHO.
+    %   POLAR(THETA, RHO, S) uses the linestyle specified in string S.
+    %   See PLOT for a description of legal linestyles.
+    %
+    %   POLAR(AX, ...) plots into AX instead of GCA.
+    %
+    %   H = POLAR(...) returns a handle to the plotted object in H.
+    %
+    %   Example:
+    %      t = 0 : .01 : 2 * pi;
+    %      polar(t, sin(2 * t) .* cos(2 * t), '--r');
+    %
+    %   See also POLARPLOT, PLOT, LOGLOG, SEMILOGX, SEMILOGY.
+    
+    %   Copyright 1984-2015 MathWorks, Inc.
+    
+    % Parse possible Axes input
+    [cax, args, nargs] = axescheck(varargin{:});
+    
+    if nargs < 1
+        error(message('MATLAB:narginchk:notEnoughInputs'));
+    elseif nargs > 3
+        error(message('MATLAB:narginchk:tooManyInputs'));
+    end
+    
+    if nargs < 1 || nargs > 3
+        error(message('MATLAB:polar:InvalidDataInputs'));
+    elseif nargs == 2
+        theta = args{1};
+        rho = args{2};
+        if ischar(rho)
+            line_style = rho;
+            rho = theta;
+            [mr, nr] = size(rho);
+            if mr == 1
+                theta = 1 : nr;
+            else
+                th = (1 : mr)';
+                theta = th(:, ones(1, nr));
+            end
+        else
+            line_style = 'auto';
+        end
+    elseif nargs == 1
+        theta = args{1};
+        line_style = 'auto';
+        rho = theta;
+        [mr, nr] = size(rho);
+        if mr == 1
+            theta = 1 : nr;
+        else
+            th = (1 : mr)';
+            theta = th(:, ones(1, nr));
+        end
+    else % nargs == 3
+        [theta, rho, line_style] = deal(args{1 : 3});
+    end
+    if ischar(theta) || ischar(rho)
+        error(message('MATLAB:polar:InvalidInputType'));
+    end
+    if ~isequal(size(theta), size(rho))
+        error(message('MATLAB:polar:InvalidInputDimensions'));
+    end
+    try
+        theta = full(double(theta));
+        rho = full(double(rho));
+    catch
+        error(message('MATLAB:specgraph:private:specgraph:nonNumericInput'));
+    end
+    
+    % get hold state
+    cax = newplot(cax);
+    
+    next = lower(get(cax, 'NextPlot'));
+    hold_state = ishold(cax);
+
+    if isa(handle(cax),'matlab.graphics.axis.PolarAxes')
+        error(message('MATLAB:polar:PolarAxes'));
+    end
+    
+    % get x-axis text color so grid is in same color
+    % get the axis gridColor
+    axColor = get(cax, 'Color');
+    gridAlpha = get(cax, 'GridAlpha');
+    axGridColor = get(cax,'GridColor').*gridAlpha + axColor.*(1-gridAlpha);
+    tc = axGridColor;
+    ls = get(cax, 'GridLineStyle');
+    
+    % Hold on to current Text defaults, reset them to the
+    % Axes' font attributes so tick marks use them.
+    fAngle = get(cax, 'DefaultTextFontAngle');
+    fName = get(cax, 'DefaultTextFontName');
+    fSize = get(cax, 'DefaultTextFontSize');
+    fWeight = get(cax, 'DefaultTextFontWeight');
+    fUnits = get(cax, 'DefaultTextUnits');
+    set(cax, ...
+        'DefaultTextFontAngle', get(cax, 'FontAngle'), ...
+        'DefaultTextFontName', get(cax, 'FontName'), ...
+        'DefaultTextFontSize', get(cax, 'FontSize'), ...
+        'DefaultTextFontWeight', get(cax, 'FontWeight'), ...
+        'DefaultTextUnits', 'data');
+    
+    % only do grids if hold is off
+    if ~hold_state
+        
+        % make a radial grid
+        hold(cax, 'on');
+        % ensure that Inf values don't enter into the limit calculation.
+        arho = abs(rho(:));
+        maxrho = max(arho(arho ~= Inf));
+        hhh = line([-maxrho, -maxrho, maxrho, maxrho], [-maxrho, maxrho, maxrho, -maxrho], 'Parent', cax);
+        set(cax, 'DataAspectRatio', [1, 1, 1], 'PlotBoxAspectRatioMode', 'auto');
+        v = [get(cax, 'XLim') get(cax, 'YLim')];
+        ticks = sum(get(cax, 'YTick') >= 0);
+        delete(hhh);
+        % check radial limits and ticks
+        rmin = 0;
+        rmax = v(4);
+        rticks = max(ticks - 1, 2);
+        if rticks > 5   % see if we can reduce the number
+            if rem(rticks, 2) == 0
+                rticks = rticks / 2;
+            elseif rem(rticks, 3) == 0
+                rticks = rticks / 3;
+            end
+        end
+        
+        % define a circle
+        th = 0 : pi / 50 : 2 * pi;
+        xunit = cos(th);
+        yunit = sin(th);
+        % now really force points on x/y axes to lie on them exactly
+        inds = 1 : (length(th) - 1) / 4 : length(th);
+        xunit(inds(2 : 2 : 4)) = zeros(2, 1);
+        yunit(inds(1 : 2 : 5)) = zeros(3, 1);
+        % plot background if necessary
+        if ~ischar(get(cax, 'Color'))
+            patch('XData', xunit * rmax, 'YData', yunit * rmax, ...
+                'EdgeColor', tc, 'FaceColor', get(cax, 'Color'), ...
+                'HandleVisibility', 'off', 'Parent', cax);
+        end
+        
+        % draw radial circles
+        c82 = cos(82 * pi / 180);
+        s82 = sin(82 * pi / 180);
+        rinc = (rmax - rmin) / rticks;
+        for i = (rmin + rinc) : rinc : rmax
+            hhh = line(xunit * i, yunit * i, 'LineStyle', ls, 'Color', tc, 'LineWidth', 1, ...
+                'HandleVisibility', 'off', 'Parent', cax);
+            text((i + rinc / 20) * c82, (i + rinc / 20) * s82, ...
+                ['  ' num2str(i)], 'VerticalAlignment', 'bottom', ...
+                'HandleVisibility', 'off', 'Parent', cax);
+        end
+        set(hhh, 'LineStyle', '-'); % Make outer circle solid
+        
+        % plot spokes
+        th = (1 : 6) * 2 * pi / 12;
+        cst = cos(th);
+        snt = sin(th);
+        cs = [-cst; cst];
+        sn = [-snt; snt];
+        line(rmax * cs, rmax * sn, 'LineStyle', ls, 'Color', tc, 'LineWidth', 1, ...
+            'HandleVisibility', 'off', 'Parent', cax);
+        
+        % annotate spokes in degrees
+        rt = 1.1 * rmax;
+        for i = 1 : length(th)
+            text(rt * cst(i), rt * snt(i), int2str(i * 30),...
+                'HorizontalAlignment', 'center', ...
+                'HandleVisibility', 'off', 'Parent', cax);
+            if i == length(th)
+                loc = int2str(0);
+            else
+                loc = int2str(180 + i * 30);
+            end
+            text(-rt * cst(i), -rt * snt(i), loc, 'HorizontalAlignment', 'center', ...
+                'HandleVisibility', 'off', 'Parent', cax);
+        end
+        
+        % set view to 2-D
+        view(cax, 2);
+        % set axis limits
+        axis(cax, rmax * [-1, 1, -1.15, 1.15]);
+    end
+    
+    % Reset defaults.
+    set(cax, ...
+        'DefaultTextFontAngle', fAngle , ...
+        'DefaultTextFontName', fName , ...
+        'DefaultTextFontSize', fSize, ...
+        'DefaultTextFontWeight', fWeight, ...
+        'DefaultTextUnits', fUnits );
+    
+    % transform data to Cartesian coordinates.
+    xx = rho .* cos(theta);
+    yy = rho .* sin(theta);
+    
+    % plot data on top of grid
+    if strcmp(line_style, 'auto')
+        q = plot(xx, yy, 'Parent', cax);
+    else
+        q = plot(xx, yy, line_style, 'Parent', cax);
+    end
+    
+    if nargout == 1
+        hpol = q;
+    end
+    
+    if ~hold_state
+        set(cax, 'DataAspectRatio', [1, 1, 1]), axis(cax, 'off');
+        set(cax, 'NextPlot', next);
+    end
+    set(get(cax, 'XLabel'), 'Visible', 'on');
+    set(get(cax, 'YLabel'), 'Visible', 'on');
+    
+    % Disable pan and zoom
+    p = hggetbehavior(cax, 'Pan');
+    p.Enable = false;
+    z = hggetbehavior(cax, 'Zoom');
+    z.Enable = false;
+    
+    if ~isempty(q) && ~isdeployed
+        makemcode('RegisterHandle', cax, 'IgnoreHandle', q, 'FunctionName', 'polar');
+    end
+end
+结束
+
+function hh = ezpolar(varargin)
+% EZPOLAR Easy to use polar coordinate plotter.
+%   EZPOLAR(FUN) plots the polar curve RHO = FUN(THETA) over the default
+%   domain 0 < theta < 2*pi.
+%
+%   EZPOLAR(FUN,[A,B]) plots FUN for A < THETA < B.
+%
+%   EZPOLAR(AX,...) plots into AX instead of GCA.
+%
+%   H = EZPOLAR(...) returns a handle to the plotted object in H.
+%
+%   Examples
+%   The easiest way to express a function is via a string:
+%      ezpolar('sin(2*t)*cos(3*t)',[0 pi])
+%
+%   One programming technique is to vectorize the string expression using
+%   the array operators .* (TIMES), ./ (RDIVIDE), .\ (LDIVIDE), .^ (POWER).
+%   This makes the algorithm more efficient since it can perform multiple
+%   function evaluations at once.
+%      ezpolar('sin(2*t).*cos(3*t)',[0 pi])
+%
+%   You may also use a function handle to an existing function or an
+%   anonymous function. These are more powerful and efficient than string
+%   expressions.
+%      ezpolar(@cos)
+%      ezpolar(@(t)sin(3*t))
+%
+%   If your function has additional parameters, for example k1,k2 in myfun:
+%      %-------------------------%
+%      function s = myfun(t,k1,k2)
+%      s = sin(k1*t).*cos(k2*t);
+%      %-------------------------%
+%   then you may use an anonymous function to specify the parameters:
+%      ezpolar(@(t)myfun(t,2,3))
+%
+%  See also EZPLOT3, EZPLOT, EZSURF, PLOT, PLOT3, POLAR, VECTORIZE,
+%           FUNCTION_HANDLE.
+
+%   Copyright 1984-2005 The MathWorks, Inc.
+
+% If r = f(theta) is an inline function, then vectorize it as need be.
+
+% Parse possible Axes input
+[cax,args,nargs] = axescheck(varargin{:});
+
+% Create plot 
+cax = newplot(cax);
+
+[rho,rho0,rhoargs] = ezfcnchk(args{1},0,'t');
+if (length(rhoargs)>1)
+   error(message('MATLAB:ezpolar:TooManyVariables'));
+end
+
+Npts = 314;
+
+% Determine the domain in t:
+switch nargs
+   case 1
+      T =  linspace(0,2*pi,Npts);
+   case 2
+      T = linspace(args{2}(1),args{2}(2),Npts);
+end
+
+RHO = ezplotfeval(rho,T);
+
+% If RHO is constant (i.e., 1 by 1), then ...
+if all( size(RHO) == 1 ), RHO = RHO.*ones(size(T)); end
+if ~isempty(cax)
+    h = polar(cax,T,RHO);
+else
+    h = polar(T,RHO);
+end
+
+text(0,-1.35*max(abs(RHO)),['r = ', texlabel(rho0)], ...
+    'HorizontalAlignment','Center','Parent',cax);
+
+if nargout > 0
+    hh = h;
+end
+结束
+
+function theAxis = subplot(varargin)
+    %SUBPLOT Create axes in tiled positions.
+    %   H = SUBPLOT(m,n,p), or SUBPLOT(mnp), breaks the Figure window
+    %   into an m-by-n matrix of small axes, selects the p-th axes for
+    %   the current plot, and returns the axes handle.  The axes are
+    %   counted along the top row of the Figure window, then the second
+    %   row, etc.  For example,
+    %
+    %       SUBPLOT(2,1,1), PLOT(income)
+    %       SUBPLOT(2,1,2), PLOT(outgo)
+    %
+    %   plots income on the top half of the window and outgo on the
+    %   bottom half. If the CurrentAxes is nested in a uipanel the
+    %   panel is used as the parent for the subplot instead of the
+    %   current figure.
+    %
+    %   SUBPLOT(m,n,p), if the axes already exists, makes it current.
+    %   SUBPLOT(m,n,p,'replace'), if the axes already exists, deletes it and
+    %   creates a new axes.
+    %   SUBPLOT(m,n,p,'align') places the axes so that the plot boxes
+    %   are aligned, but does not prevent the labels and ticks from
+    %   overlapping.
+    %   SUBPLOT(m,n,P), where P is a vector, specifies an axes position
+    %   that covers all the subplot positions listed in P.
+    %   SUBPLOT(H), where H is an axes handle, is another way of making
+    %   an axes current for subsequent plotting commands.
+    %
+    %   SUBPLOT('position',[left bottom width height]) creates an
+    %   axes at the specified position in normalized coordinates (in
+    %   in the range from 0.0 to 1.0).
+    %
+    %   SUBPLOT(..., PROP1, VALUE1, PROP2, VALUE2, ...) sets the
+    %   specified property-value pairs on the subplot axes. To add the
+    %   subplot to a specific figure pass the figure handle as the
+    %   value for the 'Parent' property.
+    %
+    %   If a SUBPLOT specification causes a new axes to overlap an
+    %   existing axes, the existing axes is deleted - unless the position
+    %   of the new and existing axes are identical.  For example,
+    %   the statement SUBPLOT(1,2,1) deletes all existing axes overlapping
+    %   the left side of the Figure window and creates a new axes on that
+    %   side - unless there is an axes there with a position that exactly
+    %   matches the position of the new axes (and 'replace' was not specified),
+    %   in which case all other overlapping axes will be deleted and the
+    %   matching axes will become the current axes.
+    %
+    %   SUBPLOT(111) is an exception to the rules above, and is not
+    %   identical in behavior to SUBPLOT(1,1,1).  For reasons of backwards
+    %   compatibility, it is a special case of subplot which does not
+    %   immediately create an axes, but instead sets up the figure so that
+    %   the next graphics command executes CLF RESET in the figure
+    %   (deleting all children of the figure), and creates a new axes in
+    %   the default position.  This syntax does not return a handle, so it
+    %   is an error to specify a return argument.  The delayed CLF RESET
+    %   is accomplished by setting the figure's NextPlot to 'replace'.
+    %
+    %   Be aware when creating subplots from scripts that the Position
+    %   property of subplots is not finalized until either a drawnow
+    %   command is issued, or MATLAB returns to await a user command.
+    %   That is, the value obtained for subplot i by the command
+    %   h(i).Position will not be correct until the script
+    %   refreshes the plot or exits.
+    %
+    %   See also  GCA, GCF, AXES, FIGURE, UIPANEL
+    
+    %   SUBPLOT(m,n,p,H) when H is an axes will move H to the specified
+    %   position.
+    %   SUBPLOT(m,n,p,H,PROP1,VALUE1,...) will move H and apply the
+    %   specified property-value pairs
+    %
+    %   SUBPLOT(m,n,p) for non-integer p places the subplot at the
+    %   fraction p-floor(p) between the positions floor(p) and ceil(p)
+    
+    %   Copyright 1984-2016 The MathWorks, Inc.
+    
+    % Separate out name/value pairs and string arguments from other arguments.
+    % This will also convert a '222' first input into [2,2,2].
+    [args,pvpairs,narg] = subplot_parseargs(varargin);
+    
+    % Check whether we should ignore a possible 'v6' argument.
+    if ~isempty(pvpairs) && strcmpi(pvpairs{1}, 'v6')
+        filename = 'subplot';
+        warning(['MATLAB:', filename, ':IgnoringV6Argument'],...
+            getString(message('MATLAB:usev6plotapi:IgnoringV6ArgumentForFilename', upper(filename))));
+        pvpairs(1) = [];
+    end
+    
+    % we will kill all overlapping axes siblings if we encounter the mnp
+    % or m,n,p specifier (excluding '111').
+    % But if we get the 'position' or H specifier, we won't check for and
+    % delete overlapping siblings:
+    killSiblings = 0;
+    createAxis = true;
+    moveAxis = false;
+    delayDestroy = false;
+    useAutoLayout = true;
+    tol = sqrt(eps);
+    parent = handle(get(0, 'CurrentFigure'));
+    ancestorFigure = parent;
+    if ~isempty(parent) && ~isempty(parent.CurrentAxes)
+        parent = parent.CurrentAxes.Parent;
+        ancestorFigure = parent;
+        if ~strcmp(ancestorFigure.Type, 'figure')
+            ancestorFigure = ancestor(parent, 'figure');
+        end
+    end
+    preventMove = false;
+    % This is the percent offset from the subplot grid of the plotbox.
+    inset = [.2, .18, .04, .1]; % [left bottom right top]
+    
+    %check for encoded format
+    h = [];
+    position = [];
+    explicitParent = false;
+    explicitPosition = false;
+    nRows = [];
+    
+    if narg == 0
+        % The argument could be either:
+        % 1) subplot()
+        % 2) subplot('Position',positionVector)
+        if isempty(pvpairs)
+            % subplot()
+            % make compatible with 3.5, i.e. subplot == subplot(111)
+            args{1} = 111;
+            narg = 1;
+        elseif strcmpi(pvpairs{1}, 'position')
+            % subplot('Position',positionVector)
+            if numel(pvpairs)>=2
+                pos_size = size(pvpairs{2});
+                if (pos_size(1) * pos_size(2) == 4)
+                    position = pvpairs{2};
+                    explicitPosition = true;
+                else
+                    error(message('MATLAB:subplot:InvalidPositionParameter'))
+                end
+            else
+                error(message('MATLAB:subplot:InvalidPositionParameter'))
+            end
+            killSiblings = 1; % Kill overlaps here also.
+            useAutoLayout = false;
+            pvpairs(1:2) = [];
+        else
+            error(message('MATLAB:subplot:UnknownOption'))
+        end
+    end
+    
+    if narg == 1
+        % The argument could be one of 2 things:
+        % 1) a 3-digit number 100 < num < 1000, of the format mnp
+        % 2) an axes handle
+        arg = args{1};
+        
+        % Check whether arg is a handle to an Axes.
+        if isempty(arg)
+            error(message('MATLAB:subplot:UnknownOption'))
+        elseif isgraphics(arg) || isa(arg,'matlab.graphics.Graphics')
+            h = handle(arg);
+            if isa(h,'matlab.ui.control.UIAxes')
+                % Error if given uiaxes
+                restrictedAccess = 1;
+                try
+                    restrictedAccess = feature('WebGraphicsRestriction');
+                catch
+                    %Do nothing.
+                end
+                if restrictedAccess
+                    error(message('MATLAB:ui:uiaxes:general'));
+                end
+            elseif ~isgraphics(h,'axes') && ~ isgraphics(h,'polaraxes')
+                error(message('MATLAB:subplot:InvalidAxesHandle'))
+            end
+            
+            createAxis = false;
+        else
+            % Check for NaN and Inf.
+            if (~isfinite(arg))
+                error(message('MATLAB:subplot:SubplotIndexNonFinite'))
+            end
+            
+            % Check for input out of range
+            if (arg <= 100 || arg >= 1000)
+                error(message('MATLAB:subplot:SubplotIndexOutOfRange'))
+            end
+            
+            plotId = rem(arg, 10);
+            nCols = rem(fix(arg - plotId) / 10, 10);
+            nRows = fix(arg / 100);
+            if nRows * nCols < plotId
+                error(message('MATLAB:subplot:SubplotIndexTooLarge'));
+            end
+            killSiblings = 1;
+            if (arg == 111)
+                createAxis = false;
+                delayDestroy = true;
+                if nargout > 0
+                    error(message('MATLAB:subplot:TooManyOutputs'))
+                end
+            else
+                createAxis = true;
+                delayDestroy = false;
+            end
+        end
+        
+    elseif narg == 3
+        % passed in subplot(m,n,p)
+        nRows = args{1};
+        nCols = args{2};
+        plotId = args{3};
+        
+        % we should kill overlaps here too:
+        killSiblings = 1;
+        
+    elseif narg == 4
+        % passed in subplot(m,n,p,ax)
+        
+        nRows = args{1};
+        nCols = args{2};
+        plotId = args{3};
+
+        arg = args{4};
+        if isempty(arg)
+            error(message('MATLAB:subplot:InvalidAxesHandle'))
+        else
+            h = handle(arg);
+            if isa(h,'matlab.ui.control.UIAxes')
+                % Error if given uiaxes
+                error(message('MATLAB:ui:uiaxes:general'));
+            elseif ~isgraphics(h,'axes') && ~isgraphics(h,'polaraxes')
+                error(message('MATLAB:subplot:InvalidAxesHandle'))
+            end
+            
+            parent = h.Parent;
+            ancestorFigure = ancestor(h, 'figure');
+            % If the parent is passed in explicitly, don't create a new figure
+            % when the "NextPlot" property is set to "new" in the figure.
+            explicitParent = true;
+            ancestorFigure.CurrentAxes = h;
+            moveAxis = true;
+            createAxis = false;
+            
+            if ~isempty(pvpairs) && strcmpi(pvpairs{1}, 'PreventMove')
+                preventMove = true;
+                pvpairs{1} = [];
+            end
+        end
+        
+    elseif narg > 4
+        % String inputs have already been removed
+        % so any other number of non-string inputs is invalid syntax.
+        error(message('MATLAB:subplot:UnknownOption'))
+        
+    end
+    
+    % Check for 'replace' or 'align' in the properties.
+    if ~isempty(pvpairs)
+        arg = pvpairs{1};
+        if strncmpi(arg, 'replace', 1)
+            % passed in subplot(m,n,p,'replace')
+            killSiblings = 2; % kill nomatter what
+            pvpairs(1) = [];
+        elseif strcmpi(arg, 'align')
+            % passed in subplot(m,n,p,'align')
+            % since obeying position will remove the axes from the grid just set
+            % useAutoLayout to false to skip adding it to the grid to start with
+            useAutoLayout = false;
+            killSiblings = 1; % kill if it overlaps stuff
+            pvpairs(1) = [];
+        end
+    end
+    
+    % Find and remove any 'Parent' property passed in as a name/value pair.
+    par = 2*find(strncmpi('Parent', pvpairs(1 : 2 : end), 6));
+    if any(par)
+        % If the parent is passed in explicitly, don't create a new figure
+        % when the "NextPlot" property is set to "new" in the figure.
+        explicitParent = true;
+        parent = handle(pvpairs{par(end)});
+        ancestorFigure = ancestor(parent, 'figure');
+        pvpairs([par-1 par]) = [];
+    end
+    
+    % if we recovered an identifier earlier, use it:
+    if ~isempty(h) && ~moveAxis
+        parent = h.Parent;
+        ancestorFigure = ancestor(h, 'figure');
+        ancestorFigure.CurrentAxes = h;
+    else  % if we haven't recovered position yet, generate it from mnp info:
+        if isempty(parent)
+            parent = gcf;
+            ancestorFigure = parent;
+        end
+        if isempty(position)
+            if min(plotId) < 1
+                error(message('MATLAB:subplot:SubplotIndexTooSmall'))
+            elseif max(plotId) > nCols * nRows
+                error(message('MATLAB:subplot:SubplotIndexTooLarge'));
+            else
+                
+                row = (nRows - 1) - fix((plotId - 1) / nCols);
+                col = rem(plotId - 1, nCols);
+                
+                % get default axes position in normalized units
+                % If we have checked this quantity once, cache it.
+                if ~isappdata(ancestorFigure, 'SubplotDefaultAxesLocation')
+                    if ~strcmp(get(ancestorFigure, 'DefaultAxesUnits'), 'normalized')
+                        tmp = axes;
+                        tmp.Units = 'normalized';
+                        def_pos = tmp.Position;
+                        delete(tmp)
+                    else
+                        def_pos = get(ancestorFigure, 'DefaultAxesPosition');
+                    end
+                    setappdata(ancestorFigure, 'SubplotDefaultAxesLocation', def_pos);
+                else
+                    def_pos = getappdata(ancestorFigure, 'SubplotDefaultAxesLocation');
+                end
+                
+                % compute outerposition and insets relative to figure bounds
+                rw = max(row) - min(row) + 1;
+                cw = max(col) - min(col) + 1;
+                width = def_pos(3) / (nCols - inset(1) - inset(3));
+                height = def_pos(4) / (nRows - inset(2) - inset(4));
+                inset = inset .* [width, height, width, height];
+                outerpos = [def_pos(1) + min(col) * width - inset(1), ...
+                    def_pos(2) + min(row) * height - inset(2), ...
+                    width * cw, height * rw];
+                
+                % adjust outerpos and insets for axes around the outside edges
+                if min(col) == 0
+                    inset(1) = def_pos(1);
+                    outerpos(3) = outerpos(1) + outerpos(3);
+                    outerpos(1) = 0;
+                end
+                if min(row) == 0
+                    inset(2) = def_pos(2);
+                    outerpos(4) = outerpos(2) + outerpos(4);
+                    outerpos(2) = 0;
+                end
+                if max(col) == nCols - 1
+                    inset(3) = max(0, 1 - def_pos(1) - def_pos(3));
+                    outerpos(3) = 1 - outerpos(1);
+                end
+                if max(row) == nRows - 1
+                    inset(4) = max(0, 1 - def_pos(2) - def_pos(4));
+                    outerpos(4) = 1 - outerpos(2);
+                end
+                
+                % compute inner position
+                position = [outerpos(1 : 2) + inset(1 : 2), ...
+                    outerpos(3 : 4) - inset(1 : 2) - inset(3 : 4)];
+                
+            end
+        end
+    end
+    
+    % kill overlapping siblings if mnp specifier was used:
+    nextstate = ancestorFigure.NextPlot;
+    
+    if strncmp(nextstate, 'replace', 7)
+        nextstate = 'add';
+    elseif strncmp(nextstate, 'new', 3)
+        killSiblings = 0;
+    end
+    
+    if killSiblings
+        if delayDestroy
+            ancestorFigure.NextPlot = 'replace';
+            return
+        end
+        hasDeleted = false;
+        sibs = datasiblings(parent);
+        newcurrent = [];
+        for i = 1 : length(sibs)
+            % Be aware that handles in this list might be destroyed before
+            % we get to them, because of other objects' DeleteFcn callbacks...
+            if isgraphics(sibs(i),'axes') || isgraphics(sibs(i),'polaraxes')
+                units = sibs(i).Units;
+                sibpos = sibs(i).Position;
+                % If a legend or colorbar has resized the axes, use the original axes
+                % position as the "Position" property:
+                if ~explicitPosition
+                    if isappdata(sibs(i), 'LegendColorbarExpectedPosition') && ...
+                            isequal(getappdata(sibs(i), 'LegendColorbarExpectedPosition'), get(sibs(i), 'Position'))
+                        sibinset = getappdata(sibs(i), 'LegendColorbarOriginalInset');
+                        if isempty(sibinset)
+                            % during load the appdata might not be present
+                            sibinset = get(sibs(i).Parent, 'DefaultAxesLooseInset');
+                        end
+                        sibinset = offsetsInUnits(sibs(i), sibinset, 'normalized', get(sibs(i), 'Units'));
+                        if strcmpi(sibs(i).ActivePositionProperty, 'position')
+                            pos = sibs(i).Position;
+                            loose = sibs(i).LooseInset;
+                            opos = getOuterFromPosAndLoose(pos, loose, get(sibs(i), 'Units'));
+                            if strcmp(sibs(i).Units, 'normalized')
+                                sibinset = [opos(3 : 4), opos(3 : 4)] .* sibinset;
+                            end
+                            sibpos = [opos(1 : 2) + sibinset(1 : 2), opos(3 : 4) - sibinset(1 : 2) - sibinset(3 : 4)];
+                        end
+                    end
+                end
+                if ~strcmp(units, 'normalized')
+                    sibpos = hgconvertunits(ancestorFigure, sibpos, units, 'normalized', parent);
+                end
+                intersect = 1;
+                if ((position(1) >= sibpos(1) + sibpos(3) - tol) || ...
+                        (sibpos(1) >= position(1) + position(3) - tol) || ...
+                        (position(2) >= sibpos(2) + sibpos(4) - tol) || ...
+                        (sibpos(2) >= position(2) + position(4) - tol))
+                    intersect = 0;
+                end
+                if intersect
+                    % position is the proposed position of an axes, and
+                    % sibpos is the current position of an existing axes.
+                    % Since the bounding boxes of position and sibpos overlap,
+                    % we must determine whether to delete the sibling sibs(i)
+                    % whose normalized position is sibpos.
+                    
+                    % First of all, we check whether we must kill the sibling
+                    % "no matter what."
+                    if (killSiblings == 2)
+                        if ~hasDeleted
+                            hasDeleted = true;
+                            % Notify the editor that an axes is being deleted
+                            matlab.graphics.internal.clearNotify(ancestorFigure, 'delete');
+                        end
+                            
+                        delete(sibs(i));
+                        
+                        % If the proposed and existing axes overlap exactly, we do
+                        % not kill the sibling.  Rather we shall ensure later that
+                        % this sibling axes is set as the 'CurrentAxes' of its
+                        % ancestorFigure.
+                        
+                        % Next we check for a partial overlap.
+                    elseif (any(abs(sibpos - position) > tol))
+                        % The proposed and existing axes partially overlap.
+                        % Since the proposed and existing axes could each be
+                        % "grid-generated" or "explicitly-specified", we must
+                        % consider four possibilities for the overlap of
+                        % "proposed" vs. "existing", i.e.
+                        % (1) "grid-generated" vs. "grid-generated"
+                        % (2) "grid-generated" vs. "explicitly-specified"
+                        % (3) "explicitly-specified" vs. "grid-generated"
+                        % (4) "explicitly-specified" vs. "explicitly-specified"
+                        
+                        % If the position of the proposed axes is
+                        % "explicitly-specified", then the only condition that
+                        % avoids killing the sibling is an exact overlap.
+                        % However, we know that the overlap is partial.
+                        if (explicitPosition)
+                            if ~hasDeleted
+                                hasDeleted = true;
+                                % Notify the editor that an axes is being deleted
+                                matlab.graphics.internal.clearNotify(ancestorFigure, 'delete');
+                            end
+                            delete(sibs(i));
+                        else
+                            % We know that the position of the proposed axes is
+                            % "grid-generated".
+                            
+                            grid = getappdata(parent, 'SubplotGrid');
+                            % The SubplotGrid maintains an array of axes
+                            % handles, one per grid location.  Axes that span
+                            % multiple grid locations do not store handles in
+                            % the SubplotGrid.
+                            
+                            if isempty(grid) || ~any(grid(:) == sibs(i)) || ...
+                                    size(grid, 1) ~= nRows || size(grid, 2) ~= nCols || ...
+                                    ~isscalar(row) || ~isscalar(col)
+                                % If the sibling cannot be found in the grid, we
+                                % kill the sibling.  Otherwise, the proposed and
+                                % existing axes are "grid-generated".  If we
+                                % are changing the size of the grid, we kill
+                                % the sibling.  Otherwise, "plotId" may be a
+                                % vector of multiple grid locations, which
+                                % causes a partial overlap between the proposed
+                                % and existing axes, so we kill the sibling.
+                                
+                                % This check recognizes that there may be
+                                % labels, colorbars, legends, etc. attached to
+                                % the existing axes that have affected its
+                                % position.  In such a case, we do not kill the
+                                % sibling.
+                                if ~hasDeleted
+                                    hasDeleted = true;
+                                    % Notify the editor that an axes is being deleted
+                                    matlab.graphics.internal.clearNotify(ancestorFigure, 'delete');
+                                end
+                                delete(sibs(i));
+                            end
+                        end
+                    end
+                    % if this axes overlaps the other one exactly then
+                    if ~isempty(newcurrent) && isgraphics(newcurrent)
+                        delete(newcurrent);
+                    end
+                    newcurrent = sibs(i);
+                end
+            end
+        end
+        if ~isempty(newcurrent) && isgraphics(newcurrent)
+            ancestorFigure.CurrentAxes = newcurrent;
+            createAxis = false;
+            matlab.graphics.internal.markFigure(newcurrent);
+        end
+        ancestorFigure.NextPlot = nextstate;
+    end
+    
+    % create the axes:
+    if createAxis
+        if strcmp(nextstate, 'new') && ~explicitParent
+            parent = figure;
+            ancestorFigure = parent;
+        end
+        ax = axes('Units', 'normalized', 'Position', position, ...
+            'LooseInset', inset, 'Parent', parent);
+        % TODO: Get axes to accept position args on command line
+        ax.Units = get(ancestorFigure, 'DefaultAxesUnits');
+        if useAutoLayout
+            addAxesToGrid(ax, nRows, nCols, row, col, position);
+        end
+        if ~isempty(pvpairs)
+            set(ax, pvpairs{:});
+        end
+    elseif moveAxis && ~preventMove
+        ax = h;
+        units = h.Units;
+        set(h, 'Units', 'normalized', 'Position', position, ...
+            'LooseInset', inset, 'Parent', parent);
+        h.Units = units;
+        if ~isempty(pvpairs)
+            set(h, pvpairs{:});
+        end
+        if useAutoLayout
+            addAxesToGrid(ax, nRows, nCols, row, col, position);
+        end      
+    else
+        % this should only happen with subplot(H)
+        ax = ancestorFigure.CurrentAxes;
+    end
+    if ~isempty(nRows)
+        setappdata(ax,'SubplotGridLocation',{nRows,nCols,plotId})
+    end
+    % return identifier, if requested:
+    if(nargout > 0)
+        theAxis = ax;
+    end
+    
+end
+
+
+
+% Add ax to a matrix of handles in the specified location.
+% The grid is stored on the parent appdata.
+% Also store the insets in ax appdata.
+% Only stores the axes if it is in a 1-by-1 cell and
+% the grid size matches any existing grid.
+function addAxesToGrid(ax, nRows, nCols, row, col, position)
+    p = ax.Parent;
+    grid = getappdata(p, 'SubplotGrid');
+    if isempty(grid)
+        grid = gobjects(nRows,nCols);
+    end
+    if any(size(grid) ~= [nRows, nCols])
+        return
+    end
+    if length(row) ~= 1 || length(col) ~= 1
+        return
+    end
+    if round(row) ~= row || round(col) ~= col
+        return
+    end
+    if grid(row + 1, col + 1) == ax
+        return
+    end
+    grid(row + 1, col + 1) = ax;
+
+    % add SubplotListenersManager to p
+    if ~isappdata(p,'SubplotListenersManager')
+        lm =  matlab.graphics.internal.SubplotListenersManager(nRows*nCols);
+        % create an empty filed so that other tests wont complain
+        setappdata(p,'SubplotListeners',[]);
+    else
+        lm=getappdata(p,'SubplotListenersManager');
+    end
+    lm.addToListeners(ax,[]);
+    setappdata(p,'SubplotListenersManager',lm);
+    
+    % add SubplotDeleteListenersManager to axes
+    if ~isappdata(ax,'SubplotDeleteListenersManager')
+        dlm =  matlab.graphics.internal.SubplotDeleteListenersManager();
+        dlm.addToListeners(ax);
+        setappdata(ax,'SubplotDeleteListenersManager',dlm); 
+    end
+    
+    setappdata(p,  'SubplotGrid', grid)
+    setappdata(ax, 'SubplotPosition', position); % normalized
+    subplotlayoutInvalid(handle(ax), [], p);
+end
+
+%----------------------------------------------------------------%
+% Convert units of offsets like LooseInset or TightInset
+% Note: Copied from legendcolorbarlayout.m
+function out = offsetsInUnits(ax, in, from, to)
+    fig = ancestor(ax, 'figure');
+    par = ax.Parent;
+    p1 = hgconvertunits(fig, [0, 0, in(1 : 2)], from, to, par);
+    p2 = hgconvertunits(fig, [0, 0, in(3 : 4)], from, to, par);
+    out = [p1(3 : 4), p2(3 : 4)];
+end
+
+%----------------------------------------------------------------%
+% Compute reference OuterPos from pos and loose. Note that
+% loose insets are relative to outerposition
+% Note: Copied from legendcolorbarlayout.m
+function outer = getOuterFromPosAndLoose(pos, loose, units)
+    if strcmp(units, 'normalized')
+        % compute outer width and height and normalize loose to them
+        w = pos(3) / (1 - loose(1) - loose(3));
+        h = pos(4) / (1 - loose(2) - loose(4));
+        loose = [w, h, w, h] .* loose;
+    end
+    outer = [pos(1 : 2) - loose(1 : 2), pos(3 : 4) + loose(1 : 2) + loose(3 : 4)];
+end
+
+function sibs = datasiblings(parent) 
+% Returns any siblings which do not have the appdata 'NonDataObject'. In 
+% other words, returns "real" axes, not things like legend or scribe objects.
+%
+    sibs = parent.Children;
+    nondatachild = logical([]);
+    for i=length(sibs):-1:1
+        nondatachild(i) = isappdata(sibs(i),'NonDataObject');
+    end
+    sibs(nondatachild) = [];
+end
+结束
